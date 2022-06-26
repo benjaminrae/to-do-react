@@ -1,0 +1,28 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.5rem;
+    background-color: #cbf3f0;
+    border: 1px solid black;
+    padding: 1rem;
+    flex-grow: 1;
+}
+
+.list__title {
+    padding: 1rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.list__button {
+    background-color: #ffbf69;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: bolder;
+    padding: 1rem;
+}
+
+.list__button:hover {
+    cursor: pointer;
+    background-color: #ff9f1c;
+}

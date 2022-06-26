@@ -1,0 +1,10 @@
+.note {
+    border: 1px solid black;
+    padding: 1rem;
+    background-color: white;
+}
+
+.note__title {
+    font-weight: 500;
+    font-size: 1.1rem;
+}

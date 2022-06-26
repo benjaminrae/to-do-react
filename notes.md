@@ -1,0 +1,1 @@
+color palette: https://coolors.co/ff9f1c-ffbf69-ffffff-cbf3f0-2ec4b6

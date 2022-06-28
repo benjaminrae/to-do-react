@@ -1,0 +1,48 @@
+.new-note__window {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.new-note__form {
+    /* position: absolute; */
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+    background-color: white;
+    padding: 2rem;
+    row-gap: 1rem;
+}
+
+.new-note__title {
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+}
+
+.new-note__content {
+    padding: 1rem;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+}
+
+.new-note__submit {
+    background-color: #ffbf69;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: bolder;
+    padding: 1rem;
+}
+
+.new-note__submit:hover {
+    cursor: pointer;
+    background-color: #ff9f1c;
+}
+
+.new-note__cancel {
+    align-self: flex-end;
+}

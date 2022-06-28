@@ -1,0 +1,23 @@
+.toast-notification__window {
+    position: absolute;
+    height: 90%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    display: none;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.toast-notification__container {
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    height: 2rem;
+    width: 10rem;
+    margin: 2rem;
+    padding: 1rem 2rem;
+}
+
+.toast-notification__message {
+    font-weight: bolder;
+}

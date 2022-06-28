@@ -5,12 +5,18 @@ const List = (props) => {
     return (
         <div className="list">
             <h2 className="list__title">{props.title}</h2>
-            {props.notes.length > 1 &&
-                props.notes.map((note, index) => (
+            {props.todos.length >= 1 &&
+                props.todos.map((todo, index) => (
                     <Note
-                        title={note.title}
-                        content={note.content}
+                        title={todo.title}
+                        content={todo.content}
                         key={index}
+                        onDelete={props.onDelete}
+                        id={todo.id}
+                        status={todo.status}
+                        onMoveRight={props.onMoveRight}
+                        onMoveLeft={props.onMoveLeft}
+                        onEdit={props.onEdit}
                     />
                 ))}
             {props.title === "do" && (

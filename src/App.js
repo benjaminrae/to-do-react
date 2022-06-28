@@ -1,74 +1,236 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Header from "./Components/Header/Header";
 import List from "./Components/List/List";
 import Footer from "./Components/Footer/Footer";
-
-const doing = [{}];
-
-const done = [{}];
+import NewNoteForm from "./Components/NewNoteForm/NewNoteForm";
+import todoService from "./services/todos";
+import ToastNotification from "./Components/ToastNotification/ToastNotification";
 
 function App() {
-    const [notes, setNotes] = useState([
-        {
-            title: "note 1",
-            content: "This is a note",
-            id: 1,
-            time: "",
-            status: 0,
-        },
-        {
-            title: "note 2",
-            content: "This is a note",
-            id: 2,
-            time: "",
-            status: 0,
-        },
-        {
-            title: "note 3",
-            content: "This is a note",
-            id: 3,
-            time: "",
-            status: 0,
-        },
-        {
-            title: "note 4",
-            content: "This is a note",
-            id: 4,
-            time: "",
-            status: 0,
-        },
-        {
-            title: "note 5",
-            content: "This is a note",
-            id: 5,
-            time: "",
-            status: 0,
-        },
+    const [todos, setTodos] = useState([
+        { title: "test note", content: "", status: 0 },
     ]);
-    const [newNote, setNewNote] = useState({});
+    const [doList, setDoList] = useState([]);
+    const [doingList, setDoingList] = useState([]);
+    const [doneList, setDoneList] = useState([]);
+    const [newTitle, setNewTitle] = useState("");
+    const [newContent, setNewContent] = useState("");
+    const [notification, setNotification] = useState("");
+    const [todoToEdit, setTodoToEdit] = useState({});
+    const [editMode, setEditMode] = useState(false);
 
-    const addNote = (event) => {
+    useEffect(() => {
+        console.log("effect");
+        todoService.getAll().then((response) => {
+            console.log("promise fulfilled");
+            setTodos(response);
+        });
+    }, []);
+
+    useEffect(() => {
+        setDoList([...todos].filter((todo) => todo.status === 0));
+        setDoingList([...todos].filter((todo) => todo.status === 1));
+        setDoneList([...todos].filter((todo) => todo.status === 2));
+        setEditMode(false);
+    }, [todos]);
+
+    useEffect(() => {
+        setEditMode(true);
+        setNewTitle(todoToEdit.title);
+        setNewContent(todoToEdit.content);
+    }, [todoToEdit]);
+
+    const handleTitleChange = (event) => {
+        setNewTitle(event.target.value);
+    };
+    const handleContentChange = (event) => {
+        setNewContent(event.target.value);
+    };
+
+    const addNoteButton = (event) => {
         event.preventDefault();
-        const noteTitle = window.prompt("What's the title of your note?");
-        const noteContent = window.prompt("What's the content of your note?");
-        setNotes([
-            ...notes,
-            { title: noteTitle, content: noteContent, status: 0 },
-        ]);
-        console.log("addnote");
+        document.getElementById("new-note__window").style.display = "flex";
+    };
+
+    const cancelAddNote = (event) => {
+        event.preventDefault();
+        document.getElementById("new-note__window").style.display = "none";
+        setEditMode(false);
+        setNewTitle("");
+        setNewContent("");
+    };
+
+    const saveNewNote = (event) => {
+        event.preventDefault();
+        // const newTodos = [...todos].concat({
+        //     title: newTitle,
+        //     content: newContent,
+        //     status: 0,
+        // });
+        const newTodo = { title: newTitle, content: newContent, status: 0 };
+        todoService
+            .create(newTodo)
+            .then((response) => {
+                setTodos([...todos].concat(response));
+                setNewTitle("");
+                setNewContent("");
+                document.getElementById("new-note__window").style.display =
+                    "none";
+                showToast("👍 Success");
+            })
+            .catch((error) => {
+                console.log("error", error);
+                showToast("👎 Failed");
+            });
+        // setTodos(newTodos);
+    };
+
+    const deleteNote = (event) => {
+        event.preventDefault();
+        const targetId = +event.target.id;
+        todoService
+            .remove(targetId)
+            .then((response) => {
+                showToast("👍 Success");
+                const newTodos = [...todos].filter(
+                    (todo) => todo.id !== targetId
+                );
+                setTodos([...newTodos]);
+            })
+            .catch((error) => {
+                console.log("error", error);
+                showToast("👎 Failed");
+            });
+    };
+
+    const editNote = (event) => {
+        event.preventDefault();
+        const id = +event.target.id;
+        setTodoToEdit([...todos].find((todo) => todo.id === id));
+        document.getElementById("new-note__window").style.display = "flex";
+    };
+
+    const moveNoteRight = (event) => {
+        event.preventDefault();
+        const targetId = +event.target.id;
+        const todoToUpdate = todos.find((todo) => todo.id === targetId);
+        const newStatus = todoToUpdate.status + 1;
+        const updatedTodo = { ...todoToUpdate, status: newStatus };
+        todoService
+            .update(updatedTodo.id, updatedTodo)
+            .then((response) => {
+                setTodos(
+                    [...todos].map((todo) =>
+                        todo.id !== updatedTodo.id ? todo : updatedTodo
+                    )
+                );
+                showToast("👍 Success");
+            })
+            .catch((error) => {
+                console.log("error", error);
+                showToast("👎  Failed");
+            });
+    };
+
+    const moveNoteLeft = (event) => {
+        event.preventDefault();
+        const targetId = +event.target.id;
+        const todoToUpdate = todos.find((todo) => todo.id === targetId);
+        const newStatus = todoToUpdate.status - 1;
+        const updatedTodo = { ...todoToUpdate, status: newStatus };
+        todoService
+            .update(updatedTodo.id, updatedTodo)
+            .then((response) => {
+                setTodos(
+                    [...todos].map((todo) =>
+                        todo.id !== updatedTodo.id ? todo : updatedTodo
+                    )
+                );
+                showToast("👍 Success");
+            })
+            .catch((error) => {
+                console.log("error", error);
+                showToast("👎  Failed");
+            });
+    };
+
+    const showToast = (message) => {
+        setNotification(message);
+        document.getElementById("toast-notification").style.display = "flex";
+        setTimeout(() => {
+            document.getElementById("toast-notification").style.display =
+                "none";
+        }, 5000);
+    };
+
+    const saveEditedNote = (event) => {
+        event.preventDefault();
+        const updatedTodo = {
+            ...todoToEdit,
+            title: newTitle,
+            content: newContent,
+        };
+        todoService
+            .update(todoToEdit.id, updatedTodo)
+            .then((response) => {
+                setTodos(
+                    [...todos].map((todo) =>
+                        todo.id !== updatedTodo.id ? todo : updatedTodo
+                    )
+                );
+                setEditMode(false);
+                document.getElementById("new-note__window").style.display =
+                    "none";
+                showToast("👍 Success");
+            })
+            .catch((error) => {
+                console.log("error", error);
+                showToast("👎  Failed");
+            });
     };
 
     return (
         <div className="App">
             <Header />
-            <div className="lists-container">
-                <List notes={notes} title="do" onAdd={addNote} />
-                <List notes={doing} title="doing" />
-                <List notes={done} title="done" />
-            </div>
+            <NewNoteForm
+                titleValue={newTitle || ""}
+                contentValue={newContent || ""}
+                onCancel={cancelAddNote}
+                onTitleChange={handleTitleChange}
+                onContentChange={handleContentChange}
+                onSave={saveNewNote}
+                editMode={editMode}
+                onEdit={saveEditedNote}
+            />
+            <ToastNotification message={notification} />
 
-            <Footer />
+            <div className="lists-container">
+                <List
+                    todos={doList}
+                    title="do"
+                    onAdd={addNoteButton}
+                    onDelete={deleteNote}
+                    onMoveRight={moveNoteRight}
+                    onEdit={editNote}
+                />
+                <List
+                    todos={doingList}
+                    title="doing"
+                    onMoveRight={moveNoteRight}
+                    onMoveLeft={moveNoteLeft}
+                    onDelete={deleteNote}
+                    onEdit={editNote}
+                />
+                <List
+                    todos={doneList}
+                    title="done"
+                    onMoveLeft={moveNoteLeft}
+                    onDelete={deleteNote}
+                    onEdit={editNote}
+                />
+            </div>
+            {/* <Footer /> */}
         </div>
     );
 }

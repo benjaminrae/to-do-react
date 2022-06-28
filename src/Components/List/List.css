@@ -20,6 +20,7 @@
     font-family: "Poppins", sans-serif;
     font-weight: bolder;
     padding: 1rem;
+    z-index: 10;
 }
 
 .list__button:hover {

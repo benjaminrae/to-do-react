@@ -2,9 +2,21 @@
     border: 1px solid black;
     padding: 1rem;
     background-color: white;
+    display: flex;
+    flex-direction: column;
 }
 
 .note__title {
     font-weight: 500;
     font-size: 1.1rem;
+    padding: 0.5rem 0;
+}
+
+.note__buttons {
+    position: absolute;
+    align-self: flex-end;
+}
+
+i {
+    pointer-events: none;
 }

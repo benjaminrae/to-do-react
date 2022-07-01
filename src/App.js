@@ -7,6 +7,7 @@ import NewNoteForm from "./Components/NewNoteForm/NewNoteForm";
 import todoService from "./services/todos";
 import ToastNotification from "./Components/ToastNotification/ToastNotification";
 import Login from "./Components/Login/Login";
+import { signIn } from "./services/firebase";
 
 function App() {
     const [todos, setTodos] = useState([
@@ -17,7 +18,9 @@ function App() {
     const [doneList, setDoneList] = useState([]);
     const [newTitle, setNewTitle] = useState("");
     const [newContent, setNewContent] = useState("");
-    const [notification, setNotification] = useState("");
+    // const [notification, setNotification] = useState({ id: 0 });
+    const [notificationList, setNotificationList] = useState([]);
+    const [toastId, setToastId] = useState(0);
     const [todoToEdit, setTodoToEdit] = useState({});
     const [editMode, setEditMode] = useState(false);
 
@@ -41,6 +44,22 @@ function App() {
         setNewTitle(todoToEdit.title);
         setNewContent(todoToEdit.content);
     }, [todoToEdit]);
+
+    const deleteToast = (id) => {
+        const updatedNotifications = [...notificationList].filter(
+            (notification) => {
+                return id !== notification.id;
+            }
+        );
+        setNotificationList(updatedNotifications);
+    };
+
+    const handleToastCancel = (event) => {
+        event.preventDefault();
+        const targetId = +event.target.id;
+        console.log(targetId);
+        deleteToast(targetId);
+    };
 
     const handleTitleChange = (event) => {
         setNewTitle(event.target.value);
@@ -152,13 +171,27 @@ function App() {
     };
 
     const showToast = (message) => {
-        setNotification(message);
-        document.getElementById("toast-notification").style.display = "flex";
-        setTimeout(() => {
-            document.getElementById("toast-notification").style.display =
-                "none";
-        }, 5000);
+        const maxId =
+            notificationList.length > 0
+                ? Math.max(
+                      ...notificationList.map((notification) => notification.id)
+                  )
+                : 0;
+        setToastId(maxId + 1);
+        setNotificationList(
+            [...notificationList].concat({
+                message: message,
+                id: maxId + 1,
+            })
+        );
+        // autoDeleteToast(maxId);
     };
+
+    // const autoDeleteToast = (id) => {
+    //     setTimeout(() => {
+    //         deleteToast(id);
+    //     }, 5000);
+    // };
 
     const saveEditedNote = (event) => {
         event.preventDefault();
@@ -189,7 +222,7 @@ function App() {
     return (
         <div>
             <div className="App">
-                <Header />
+                <Header onLogin={signIn} />
                 <NewNoteForm
                     titleValue={newTitle || ""}
                     contentValue={newContent}
@@ -200,9 +233,12 @@ function App() {
                     editMode={editMode}
                     onEdit={saveEditedNote}
                 />
-                <ToastNotification message={notification} />
-                <Login />
-                {/* <div className="lists-container">
+                <ToastNotification
+                    toastList={notificationList}
+                    onCancel={handleToastCancel}
+                />
+                {/* <Login /> */}
+                <div className="lists-container">
                     <List
                         todos={doList}
                         title="do"
@@ -226,7 +262,7 @@ function App() {
                         onDelete={deleteNote}
                         onEdit={editNote}
                     />
-                </div> */}
+                </div>
             </div>
             {/* <Footer /> */}
         </div>

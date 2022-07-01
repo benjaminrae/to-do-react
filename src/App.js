@@ -44,6 +44,7 @@ function App() {
     const handleTitleChange = (event) => {
         setNewTitle(event.target.value);
     };
+
     const handleContentChange = (event) => {
         setNewContent(event.target.value);
     };
@@ -63,11 +64,6 @@ function App() {
 
     const saveNewNote = (event) => {
         event.preventDefault();
-        // const newTodos = [...todos].concat({
-        //     title: newTitle,
-        //     content: newContent,
-        //     status: 0,
-        // });
         const newTodo = { title: newTitle, content: newContent, status: 0 };
         todoService
             .create(newTodo)
@@ -83,12 +79,11 @@ function App() {
                 console.log("error", error);
                 showToast("👎 Failed");
             });
-        // setTodos(newTodos);
     };
 
     const deleteNote = (event) => {
         event.preventDefault();
-        const targetId = +event.target.id;
+        const targetId = event.target.id;
         todoService
             .remove(targetId)
             .then((response) => {
@@ -106,14 +101,14 @@ function App() {
 
     const editNote = (event) => {
         event.preventDefault();
-        const id = +event.target.id;
+        const id = event.target.id;
         setTodoToEdit([...todos].find((todo) => todo.id === id));
         document.getElementById("new-note__window").style.display = "flex";
     };
 
     const moveNoteRight = (event) => {
         event.preventDefault();
-        const targetId = +event.target.id;
+        const targetId = event.target.id;
         const todoToUpdate = todos.find((todo) => todo.id === targetId);
         const newStatus = todoToUpdate.status + 1;
         const updatedTodo = { ...todoToUpdate, status: newStatus };
@@ -135,7 +130,7 @@ function App() {
 
     const moveNoteLeft = (event) => {
         event.preventDefault();
-        const targetId = +event.target.id;
+        const targetId = event.target.id;
         const todoToUpdate = todos.find((todo) => todo.id === targetId);
         const newStatus = todoToUpdate.status - 1;
         const updatedTodo = { ...todoToUpdate, status: newStatus };
@@ -191,44 +186,45 @@ function App() {
     };
 
     return (
-        <div className="App">
-            <Header />
-            <NewNoteForm
-                titleValue={newTitle || ""}
-                contentValue={newContent || ""}
-                onCancel={cancelAddNote}
-                onTitleChange={handleTitleChange}
-                onContentChange={handleContentChange}
-                onSave={saveNewNote}
-                editMode={editMode}
-                onEdit={saveEditedNote}
-            />
-            <ToastNotification message={notification} />
-
-            <div className="lists-container">
-                <List
-                    todos={doList}
-                    title="do"
-                    onAdd={addNoteButton}
-                    onDelete={deleteNote}
-                    onMoveRight={moveNoteRight}
-                    onEdit={editNote}
+        <div>
+            <div className="App">
+                <Header />
+                <NewNoteForm
+                    titleValue={newTitle || ""}
+                    contentValue={newContent}
+                    onCancel={cancelAddNote}
+                    onTitleChange={handleTitleChange}
+                    onContentChange={handleContentChange}
+                    onSave={saveNewNote}
+                    editMode={editMode}
+                    onEdit={saveEditedNote}
                 />
-                <List
-                    todos={doingList}
-                    title="doing"
-                    onMoveRight={moveNoteRight}
-                    onMoveLeft={moveNoteLeft}
-                    onDelete={deleteNote}
-                    onEdit={editNote}
-                />
-                <List
-                    todos={doneList}
-                    title="done"
-                    onMoveLeft={moveNoteLeft}
-                    onDelete={deleteNote}
-                    onEdit={editNote}
-                />
+                <ToastNotification message={notification} />
+                <div className="lists-container">
+                    <List
+                        todos={doList}
+                        title="do"
+                        onAdd={addNoteButton}
+                        onDelete={deleteNote}
+                        onMoveRight={moveNoteRight}
+                        onEdit={editNote}
+                    />
+                    <List
+                        todos={doingList}
+                        title="doing"
+                        onMoveRight={moveNoteRight}
+                        onMoveLeft={moveNoteLeft}
+                        onDelete={deleteNote}
+                        onEdit={editNote}
+                    />
+                    <List
+                        todos={doneList}
+                        title="done"
+                        onMoveLeft={moveNoteLeft}
+                        onDelete={deleteNote}
+                        onEdit={editNote}
+                    />
+                </div>
             </div>
             {/* <Footer /> */}
         </div>

@@ -3,19 +3,22 @@
     padding: 1rem;
     background-color: white;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
+/* .note__text {
+} */
 .note__title {
     font-weight: 500;
     font-size: 1.1rem;
     padding: 0.5rem 0;
 }
 
-.note__buttons {
-    position: absolute;
-    align-self: flex-end;
-}
+/* .note__buttons {
+
+} */
 
 i {
     pointer-events: none;

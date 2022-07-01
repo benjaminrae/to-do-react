@@ -6,6 +6,7 @@
     border: 1px solid black;
     padding: 1rem;
     flex-grow: 1;
+    max-height: calc(100vh * 0.8);
 }
 
 .list__title {
@@ -14,6 +15,9 @@
     font-size: 1.5rem;
 }
 
+.list__notes {
+    overflow-y: scroll;
+}
 .list__button {
     background-color: #ffbf69;
     font-size: 1rem;

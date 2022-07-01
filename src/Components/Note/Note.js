@@ -4,8 +4,10 @@ const Note = (props) => {
     const id = props.id;
     return (
         <div className="note">
-            <h3 className="note__title">{props.title}</h3>
-            <p>{props.content}</p>
+            <div className="note__text">
+                <h3 className="note__title">{props.title}</h3>
+                <p>{props.content}</p>
+            </div>
 
             <div className="note__buttons">
                 <button onClick={props.onEdit} id={props.id}>

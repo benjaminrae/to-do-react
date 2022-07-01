@@ -18,6 +18,19 @@
 .list__notes {
     overflow-y: scroll;
 }
+.list__notes::-webkit-scrollbar {
+    background-color: #cbf3f0;
+    width: 1rem;
+    /* border: 1px solid #2ec4b6; */
+    border-radius: 0.5rem;
+}
+.list__notes::-webkit-scrollbar-thumb {
+    background-color: #2ec4b6;
+    border: 0.3rem solid rgba(0, 0, 0, 0);
+    border-radius: 0.5rem;
+    background-clip: padding-box;
+}
+
 .list__button {
     background-color: #ffbf69;
     font-size: 1rem;

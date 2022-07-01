@@ -1,0 +1,47 @@
+.login__window {
+    position: absolute;
+    height: 70%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login__form {
+    /* position: absolute; */
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+    background-color: white;
+    padding: 2rem;
+    row-gap: 1rem;
+}
+
+.login__username {
+    padding: 1rem;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+}
+
+.login__password {
+    padding: 1rem;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+}
+
+.login__submit {
+    background-color: #ffbf69;
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: bolder;
+    padding: 1rem;
+}
+
+.login__submit:hover {
+    cursor: pointer;
+    background-color: #ff9f1c;
+}
+
+.login__cancel {
+    align-self: flex-end;
+}

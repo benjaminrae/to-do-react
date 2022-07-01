@@ -6,6 +6,7 @@ import Footer from "./Components/Footer/Footer";
 import NewNoteForm from "./Components/NewNoteForm/NewNoteForm";
 import todoService from "./services/todos";
 import ToastNotification from "./Components/ToastNotification/ToastNotification";
+import Login from "./Components/Login/Login";
 
 function App() {
     const [todos, setTodos] = useState([
@@ -200,7 +201,8 @@ function App() {
                     onEdit={saveEditedNote}
                 />
                 <ToastNotification message={notification} />
-                <div className="lists-container">
+                <Login />
+                {/* <div className="lists-container">
                     <List
                         todos={doList}
                         title="do"
@@ -224,7 +226,7 @@ function App() {
                         onDelete={deleteNote}
                         onEdit={editNote}
                     />
-                </div>
+                </div> */}
             </div>
             {/* <Footer /> */}
         </div>

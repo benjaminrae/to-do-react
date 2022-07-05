@@ -1,6 +1,6 @@
 .header {
     background-color: #2ec4b6;
-    padding: 1rem 2rem;
+    /* padding: 1rem 2rem; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -9,6 +9,7 @@
 .header__title {
     font-size: 2rem;
     font-weight: 700;
+    padding: 1rem 2rem;
     font-family: sans-serif;
 }
 

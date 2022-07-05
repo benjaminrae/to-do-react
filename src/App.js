@@ -6,8 +6,8 @@ import Footer from "./Components/Footer/Footer";
 import NewNoteForm from "./Components/NewNoteForm/NewNoteForm";
 import todoService from "./services/todos";
 import ToastNotification from "./Components/ToastNotification/ToastNotification";
-import Login from "./Components/Login/Login";
-import { signIn } from "./services/firebase";
+// import Login from "./Components/Login/Login";
+// import { signIn } from "./services/firebase";
 
 function App() {
     const [todos, setTodos] = useState([
@@ -23,6 +23,7 @@ function App() {
     const [toastId, setToastId] = useState(0);
     const [todoToEdit, setTodoToEdit] = useState({});
     const [editMode, setEditMode] = useState(false);
+    const [carouselIndex, setCarouselIndex] = useState(0);
 
     useEffect(() => {
         console.log("effect");
@@ -219,10 +220,23 @@ function App() {
             });
     };
 
+    const handleCarouselButton = (event) => {
+        event.preventDefault();
+        let newIndex = +event.target.value;
+        setCarouselIndex(newIndex);
+    };
+
+    useEffect(() => {
+        document.documentElement.style.setProperty(
+            "--carousel-index",
+            `-${carouselIndex * 100}%`
+        );
+    }, [carouselIndex]);
+
     return (
         <div>
             <div className="App">
-                <Header onLogin={signIn} />
+                <Header />
                 <NewNoteForm
                     titleValue={newTitle || ""}
                     contentValue={newContent}
@@ -238,30 +252,55 @@ function App() {
                     onCancel={handleToastCancel}
                 />
                 {/* <Login /> */}
-                <div className="lists-container">
-                    <List
-                        todos={doList}
-                        title="do"
-                        onAdd={addNoteButton}
-                        onDelete={deleteNote}
-                        onMoveRight={moveNoteRight}
-                        onEdit={editNote}
-                    />
-                    <List
-                        todos={doingList}
-                        title="doing"
-                        onMoveRight={moveNoteRight}
-                        onMoveLeft={moveNoteLeft}
-                        onDelete={deleteNote}
-                        onEdit={editNote}
-                    />
-                    <List
-                        todos={doneList}
-                        title="done"
-                        onMoveLeft={moveNoteLeft}
-                        onDelete={deleteNote}
-                        onEdit={editNote}
-                    />
+                <div className="carousel-outer">
+                    <div className="lists-container carousel-inner">
+                        <List
+                            todos={doList}
+                            title="do"
+                            onAdd={addNoteButton}
+                            onDelete={deleteNote}
+                            onMoveRight={moveNoteRight}
+                            onEdit={editNote}
+                        />
+                        <List
+                            todos={doingList}
+                            title="doing"
+                            onMoveRight={moveNoteRight}
+                            onMoveLeft={moveNoteLeft}
+                            onDelete={deleteNote}
+                            onEdit={editNote}
+                        />
+                        <List
+                            todos={doneList}
+                            title="done"
+                            onMoveLeft={moveNoteLeft}
+                            onDelete={deleteNote}
+                            onEdit={editNote}
+                        />
+                    </div>
+                    <div className="carousel-buttons">
+                        <button
+                            value="0"
+                            onClick={handleCarouselButton}
+                            className="carousel-buttons__button"
+                        >
+                            do
+                        </button>
+                        <button
+                            value="1"
+                            onClick={handleCarouselButton}
+                            className="carousel-buttons__button"
+                        >
+                            doing
+                        </button>
+                        <button
+                            value="2"
+                            onClick={handleCarouselButton}
+                            className="carousel-buttons__button"
+                        >
+                            done
+                        </button>
+                    </div>
                 </div>
             </div>
             {/* <Footer /> */}

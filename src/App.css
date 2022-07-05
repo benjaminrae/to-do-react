@@ -1,3 +1,7 @@
+:root {
+    --carousel-index: -0%;
+}
+
 .App {
     background: linear-gradient(#2ec4b6, white);
     height: 100vh;
@@ -13,3 +17,39 @@
     column-gap: 2rem;
     margin-bottom: 4rem;
 }
+.carousel-buttons {
+    display: none;
+    gap: 1rem;
+}
+
+.carousel-buttons__button {
+    background-color: #ffbf69;
+    font-size: 0.75rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: bolder;
+    padding: 0.5rem;
+}
+
+.carousel-buttons__button:hover {
+    cursor: pointer;
+    background-color: #ff9f1c;
+}
+
+@media only screen and (max-width: 1200px) {
+    .carousel-outer {
+        overflow: hidden;
+        width: 100%;
+    }
+    .carousel-inner {
+        white-space: nowrap;
+        width: 100%;
+        transition: transform 0.3s;
+        transform: translateX(var(--carousel-index));
+        display: block;
+        padding: 0rem;
+    }
+    .carousel-buttons {
+        display: flex;
+        justify-content: center;
+    }
+} ;

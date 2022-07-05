@@ -44,3 +44,12 @@
     cursor: pointer;
     background-color: #ff9f1c;
 }
+
+@media only screen and (max-width: 1200px) {
+    .list {
+        width: 100%;
+        display: inline-flex;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+}

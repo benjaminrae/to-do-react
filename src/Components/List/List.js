@@ -3,7 +3,7 @@ import Note from "../Note/Note";
 
 const List = (props) => {
     return (
-        <div className="list">
+        <div className="list carousel-item">
             <h2 className="list__title">{props.title}</h2>
             <div className="list__notes">
                 {props.todos.length >= 1 &&

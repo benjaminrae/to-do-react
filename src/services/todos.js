@@ -1,5 +1,8 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3001/api/todos";
+const baseUrl =
+    "https://wonderfulcorsproxy.herokuapp.com/https://do-doing-done.herokuapp.com/api/todos";
+
+const localBaseUrl = "http://localhost:3001/api/todos";
 
 const getAll = () => {
     const request = axios.get(baseUrl);
@@ -20,4 +23,5 @@ const remove = (id) => {
     const request = axios.delete(`${baseUrl}/${id}`);
     return request.then((response) => response.data);
 };
+
 export default { getAll, create, update, remove };

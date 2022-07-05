@@ -1,6 +1,5 @@
 import axios from "axios";
-const baseUrl =
-    "https://wonderfulcorsproxy.herokuapp.com/https://do-doing-done.herokuapp.com/api/todos";
+const baseUrl = "https://do-doing-done.herokuapp.com/api/todos";
 
 const localBaseUrl = "http://localhost:3001/api/todos";
 

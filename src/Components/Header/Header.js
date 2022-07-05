@@ -14,7 +14,7 @@ const Header = (props) => {
     };
     return (
         <div className="header">
-            <h1 className="header__title">do|doing|done</h1>
+            <h1 className="header__title">do | doing | done</h1>
             <nav className="header__nav">
                 {/* <ul className="header__list">
                     <li>

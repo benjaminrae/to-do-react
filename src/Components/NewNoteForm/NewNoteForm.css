@@ -17,6 +17,7 @@
     background-color: white;
     padding: 2rem;
     row-gap: 1rem;
+    max-width: 70%;
 }
 
 .new-note__title {

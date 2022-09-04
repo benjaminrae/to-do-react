@@ -1,5 +1,6 @@
 import axios from "axios";
-const baseUrl = "https://do-doing-done.herokuapp.com/api/todos";
+const baseUrlHeroku = "https://do-doing-done.herokuapp.com/api/todos";
+const baseUrl = "https://web-production-48c3.up.railway.app/";
 
 const localBaseUrl = "http://localhost:3001/api/todos";
 

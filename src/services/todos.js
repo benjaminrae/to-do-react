@@ -24,4 +24,6 @@ const remove = (id) => {
     return request.then((response) => response.data);
 };
 
-export default { getAll, create, update, remove };
+const todosService = { getAll, create, update, remove };
+
+export default todosService;

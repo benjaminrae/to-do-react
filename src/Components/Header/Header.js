@@ -1,17 +1,13 @@
 import "./Header.css";
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 
 const Header = (props) => {
-    const [loginDetails, setLoginDetails] = useState({});
+    // const [loginDetails, setLoginDetails] = useState({});
 
-    useEffect(() => {
-        console.log(loginDetails);
-    }, [loginDetails]);
-
-    const handleLogin = (event) => {
-        event.preventDefault();
-        setLoginDetails(props.onLogin());
-    };
+    // const handleLogin = (event) => {
+    //     event.preventDefault();
+    //     setLoginDetails(props.onLogin());
+    // };
     return (
         <div className="header">
             <h1 className="header__title">do | doing | done</h1>

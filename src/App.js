@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Header from "./Components/Header/Header";
 import List from "./Components/List/List";
-import Footer from "./Components/Footer/Footer";
+// import Footer from "./Components/Footer/Footer";
 import NewNoteForm from "./Components/NewNoteForm/NewNoteForm";
 import todoService from "./services/todos";
 import ToastNotification from "./Components/ToastNotification/ToastNotification";
@@ -26,9 +26,7 @@ function App() {
     const [carouselIndex, setCarouselIndex] = useState(0);
 
     useEffect(() => {
-        console.log("effect");
         todoService.getAll().then((response) => {
-            console.log("promise fulfilled");
             setTodos(response);
         });
     }, []);
@@ -58,7 +56,6 @@ function App() {
     const handleToastCancel = (event) => {
         event.preventDefault();
         const targetId = +event.target.id;
-        console.log(targetId);
         deleteToast(targetId);
     };
 
@@ -97,7 +94,6 @@ function App() {
                 showToast("👍 Success");
             })
             .catch((error) => {
-                console.log("error", error);
                 showToast("👎 Failed");
             });
     };
@@ -115,7 +111,6 @@ function App() {
                 setTodos([...newTodos]);
             })
             .catch((error) => {
-                console.log("error", error);
                 showToast("👎 Failed");
             });
     };
@@ -144,7 +139,6 @@ function App() {
                 showToast("👍 Success");
             })
             .catch((error) => {
-                console.log("error", error);
                 showToast("👎  Failed");
             });
     };
@@ -166,7 +160,6 @@ function App() {
                 showToast("👍 Success");
             })
             .catch((error) => {
-                console.log("error", error);
                 showToast("👎  Failed");
             });
     };
@@ -215,7 +208,6 @@ function App() {
                 showToast("👍 Success");
             })
             .catch((error) => {
-                console.log("error", error);
                 showToast("👎  Failed");
             });
     };

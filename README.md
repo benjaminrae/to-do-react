@@ -18,7 +18,7 @@ This was my first full stack project. Almost everything was new to me here, I re
 
 I enjoyed creating the mobile view, using three buttons to navigate the lists.
 
-## This project definitely would benefit from many improvements such as changing to TypeScript and implementing tests, adding authentication and user accounts and possibly even the ability to customise the lists or even add more.
+This project definitely would benefit from many improvements such as changing to TypeScript and implementing tests, adding authentication and user accounts and possibly even the ability to customise the lists or even add more.
 
 ### Built with
 

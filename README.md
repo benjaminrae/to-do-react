@@ -14,7 +14,7 @@ Mobile - buttons to navigate the three lists
 
 ## About the project
 
-This was my first full stack project. Almost everything was new to me here, I relied a lot on documentation to especially when it came to Mongoose on the backend.
+This was my first full stack project. Almost everything was new to me here, I relied a lot on documentation especially when it came to Mongoose on the backend.
 
 I enjoyed creating the mobile view, using three buttons to navigate the lists.
 
